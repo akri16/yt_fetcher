@@ -8,8 +8,7 @@ services:
 
   api:
     image: akri16/yt_publisher:latest
-    env_file:
-      - .env
+
     depends_on:
       - db
     ports:
@@ -22,11 +21,13 @@ services:
 
   poller:
     image: akri16/yt_publisher:latest
-    env_file:
-      - .env
     
     environment:
       - MONGO_CONN_STR=mongodb://db:27017/yt_db
+      - POLL_INTERVAL=10
+      - YT_API_KEY=${YT_API_KEY}
+      - POLL_QUERY=surfing
+      - POLL_MAX_RES=25
     
     depends_on:
       - db
