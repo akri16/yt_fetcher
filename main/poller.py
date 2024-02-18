@@ -60,6 +60,8 @@ def get_last_tstp_in_db():
 def start_polling():
     logging.info(f"Starting Poller @ 1/{settings.poll_interval} hz")
     
+    # For every API Call get the videos published after the last video in the DB
+
     last_video_tstp = get_last_tstp_in_db()
     while True:
         requester = build_search_requester(last_video_tstp)

@@ -18,6 +18,9 @@ async def videos(
     ascending: bool = False
 ) -> PaginatedVideos:
 
+    # pag_token is a specially created field (publishTime + videoID). This field 
+    # helps in paginatio as publishTime alone will not be unique
+
     data = mongo.videos.aggregate(
         [
             {
