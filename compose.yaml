@@ -1,0 +1,37 @@
+services:
+  db:
+    image: mongo:latest
+    ports: 
+      - "27017:27017"
+    volumes:
+      - "data-vol:/data/db"
+
+  api:
+    image: akri16/yt_publisher:latest
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+    environment:
+      - MONGO_CONN_STR=mongodb://db:27017/yt_db
+
+    command: 'api'
+
+  poller:
+    image: akri16/yt_publisher:latest
+    env_file:
+      - .env
+    
+    environment:
+      - MONGO_CONN_STR=mongodb://db:27017/yt_db
+    
+    depends_on:
+      - db
+
+    command: 'poller'
+
+volumes:
+  data-vol:
