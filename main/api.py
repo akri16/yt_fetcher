@@ -14,7 +14,8 @@ async def root() -> dict:
 async def videos(
     query: str, 
     page_size: int = Query(10, gt=0, le=20), 
-    page_no: int = 1
+    page_no: int = 1,
+    ascending: bool = False
 ) -> PaginatedVideos:
 
     data = mongo.videos.aggregate(
@@ -24,7 +25,7 @@ async def videos(
             },
             {
                 '$sort': {
-                    'pag_token': -1
+                    'pag_token': 1 if ascending else -1
                 }
             },
             {

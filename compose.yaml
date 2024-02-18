@@ -16,6 +16,7 @@ services:
 
     environment:
       - MONGO_CONN_STR=mongodb://db:27017/yt_db
+      - YT_API_KEYS=${YT_API_KEYS}
 
     command: 'api'
 
@@ -25,7 +26,7 @@ services:
     environment:
       - MONGO_CONN_STR=mongodb://db:27017/yt_db
       - POLL_INTERVAL=10
-      - YT_API_KEY=${YT_API_KEY}
+      - YT_API_KEYS=${YT_API_KEYS}
       - POLL_QUERY=surfing
       - POLL_MAX_RES=25
     
